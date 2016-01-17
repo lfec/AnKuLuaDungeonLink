@@ -1,6 +1,6 @@
 -- ========== Settings ================
-Settings:setCompareDimension(true, 1440)
-Settings:setScriptDimension(true, 1440)
+Settings:setCompareDimension(true, 640)
+Settings:setScriptDimension(true, 640)
 -- ==========  main program ===========
 dialogInit()
 addTextView("selecione uma das opçoes a baixo")
@@ -10,14 +10,16 @@ addRadioButton("3", 3)
 addRadioButton("5", 5)
 addRadioButton("10", 10)
 addRadioButton("20", 15)
-addRadioButton("50", 15)
+addRadioButton("50", 50)
 addRadioButton("ATE ESGOTAR", 0)
 
-dialogShow("Configurações")
+dialogShow("Configurações v0.0.2")
 
 vezes = rpt
 
 cont =0 
+
+right = Region(0,720, 640,130)
 
 while(vezes == 0 or cont <= vezes) do
 
@@ -27,7 +29,7 @@ else
 toast(cont.." de "..vezes)
 end
 
-if(not existsClick("repeat.png",3000) or not existsClick("repeatBR.png",3000)) 
+if(not existsClick("rpt-EN.png",3000) or not existsClick("rpt-BR.png",3000)) 
 then
 keyevent(3)
 break
