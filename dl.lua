@@ -1,40 +1,82 @@
+function waitOneScan(zona, target)
+t = Timer()
+	while (true) do
+	if (zona:exists(target, 0)) then -- 0 is to scan once
+		return getLastMatch()
+	end
+	wait(10) -- wait one second, tune the scanrate here
+
+	if(t:check()>=300) then
+		return nil
+	end
+	
+	end
+
+end
+
+function printToast(vezes, cont)
+
+	if(vezes==0) then
+		toast(cont.." de INFINITO")
+	else
+		toast(cont.." de "..vezes)
+	end
+
+end
+
+
 -- ========== Settings ================
 Settings:setCompareDimension(true, 640)
 Settings:setScriptDimension(true, 640)
 -- ==========  main program ===========
+
+linguas = {"EN", "BR"}
+
 dialogInit()
 addTextView("selecione uma das opçoes a baixo")
 newRow()
 addRadioGroup("rpt", 5)
-addRadioButton("3", 3)
 addRadioButton("5", 5)
 addRadioButton("10", 10)
-addRadioButton("20", 15)
+addRadioButton("25", 25)
 addRadioButton("50", 50)
 addRadioButton("ATE ESGOTAR", 0)
-
-dialogShow("Configurações v0.0.2")
+newRow()
+addSpinner("lng",linguas,linguas[1])
+dialogShow("Configurações v0.0.3")
 
 vezes = rpt
+cont =1 
+err = false
 
-cont =0 
+zona = Region(0,720, 640,130)
 
-right = Region(0,720, 640,130)
+button = Pattern("rpt-EN.png")
+if(lgn=="BR") then
+	button = Pattern("rpt-BR.png")
+end
 
 while(vezes == 0 or cont <= vezes) do
 
-if(vezes==0) then
-toast(cont.." de INFINITO")
-else
-toast(cont.." de "..vezes)
+found = waitOneScan(zona, button)
+if(found == nil) then
+	print("imagem não encontrada em 5 minutos")
+	err = true
+	return
+else 
+	click(found)
 end
 
-if(not existsClick("rpt-EN.png",3000) or not existsClick("rpt-BR.png",3000)) 
-then
-keyevent(3)
-break
-end
+printToast(vezes, cont)
+
+wait(60) -- tempo entre uma ação e outra
+
 cont=cont+1
 end
-wait(3000)
-keyevent(3)
+
+if(err) then
+	keyevent(3) -- se houve erro, saia de vez
+else
+	wait(260) -- se não houve erro, espere 5 minutos para sair
+	keyevent(3)
+end
