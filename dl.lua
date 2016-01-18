@@ -1,11 +1,13 @@
 function waitOneScan(zona, target)
 t = Timer()
+t:set()
 	while (true) do
 	if (zona:exists(target, 0)) then -- 0 is to scan once
-		return getLastMatch()
+		return zona:getLastMatch()
 	end
 	wait(10) -- wait one second, tune the scanrate here
 
+	--toast(""..t:check())
 	if(t:check()>=300) then
 		return nil
 	end
@@ -50,7 +52,7 @@ cont =1
 err = false
 
 zona = Region(0,720, 640,130)
-
+--zona:highlight()
 button = Pattern("rpt-EN.png")
 if(lgn=="BR") then
 	button = Pattern("rpt-BR.png")
@@ -77,6 +79,6 @@ end
 if(err) then
 	keyevent(3) -- se houve erro, saia de vez
 else
-	wait(260) -- se não houve erro, espere 5 minutos para sair
+	wait(260) -- se não houve erro, espere 4 minutos para sair
 	keyevent(3)
 end
