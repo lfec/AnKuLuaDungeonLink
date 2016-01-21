@@ -55,12 +55,13 @@ zona = Region(0,720, 640,130)
 --zona:highlight()
 button = Pattern("rpt-EN.png"):similar(0.95)
 if(lgn=="BR") then
-	button = Pattern("rpt-BR.png")
+	button = Pattern("rpt-BR.png"):similar(0.95)
 end
 
 while(vezes == 0 or cont <= vezes) do
 
 found = waitOneScan(zona, button)
+found:highlight(2)
 if(found == nil) then
 	print("imagem não encontrada em 5 minutos")
 	err = true
