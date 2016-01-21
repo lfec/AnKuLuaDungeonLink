@@ -53,7 +53,7 @@ err = false
 
 zona = Region(0,720, 640,130)
 --zona:highlight()
-button = Pattern("rpt-EN.png")
+button = Pattern("rpt-EN.png"):similar(0.95)
 if(lgn=="BR") then
 	button = Pattern("rpt-BR.png")
 end
