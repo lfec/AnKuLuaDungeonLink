@@ -42,6 +42,7 @@ addRadioButton("5", 5)
 addRadioButton("10", 10)
 addRadioButton("25", 25)
 addRadioButton("50", 50)
+addRadioButton("100", 100)
 addRadioButton("ATE ESGOTAR", 0)
 newRow()
 addSpinner("lng",linguas,linguas[1])
@@ -76,7 +77,7 @@ wait(60) -- tempo entre uma ação e outra
 
 cont=cont+1
 end
-
+print("executado "..cont.." vezes")
 if(err) then
 	keyevent(3) -- se houve erro, saia de vez
 else
